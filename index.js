@@ -55,7 +55,6 @@ process.on("unhandledRejection", (err) => {
   console.log("rejection happend");
   process.exit(1);
 });
-console.log(__dirname);
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`server is online in port: ${port}`);
