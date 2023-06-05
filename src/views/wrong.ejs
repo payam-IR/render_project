@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <style>
+      div {
+        text-align: center;
+        font-size: large;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <%if(err.status == 401 ||err.status == 500 ||err.status == 404 ){%>
+    <div><%=err.message%></div>
+    <div><%=err.status%></div>
+    <%console.log(err)%> <%}else if(err.status == 400 || err.status == 403){%>
+    <div><%=err.message%></div>
+    <div><%=err.status%></div>
+    <%if(req.isAuthenticated()){%>
+    <div><a href="/api/user">return</a></div>
+    <%}else{%>
+    <div><a href="/api/auth/register">return</a></div>
+
+    <%}%> <%}else{%>
+    <div>"SERVER IS NOT RESPONDING!TRY LATER"</div>
+    <%console.log(err.stack)%> <%}%>
+  </body>
+</html>

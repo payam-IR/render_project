@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>ت کاربران</title>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <form
+      action="/api/admin/profile/<%=req.user.id%>?method=PUT"
+      ,
+      method="post"
+    >
+      <input
+        type="text"
+        placeholder="username"
+        name="username"
+        value="<%=req.user.username%>"
+      />
+      <input
+        type="text"
+        placeholder="email"
+        name="email"
+        value="<%=req.user.email%>"
+      />
+      <input type="submit" />
+    </form>
+  </body>
+</html>

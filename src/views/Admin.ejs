@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/table.css" />
+    <style>
+      div {
+        text-align: center;
+        font-size: medium;
+        color: black;
+      }
+      table {
+        width: 100%;
+        margin: 3px auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <div>اطلاعات شما بصورت زیر میباشد</div>
+    <table>
+      <thead>
+        <tr>
+          <th>username</th>
+          <th>email</th>
+          <th>operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%=req.user.username%></td>
+          <td><%=req.user.email%></td>
+          <td>
+            <form
+              action="/api/admin/<%=req.user.id%>?method=DELETE"
+              method="post"
+            >
+              <button type="submit">remove acc</button>
+              <a href="/api/admin/profile/<%=req.user.id%>">upadet</a>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <form
+        action="/api/user/upload"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" value="choose file" name="img" />
+        <input type="submit" value="send" />
+      </form>
+    </div>
+    <div>
+      <img
+        src="<%=req.user.img%>"
+        alt=""
+        style="width: 100px; height: 100px; border-radius: 50%"
+      />
+    </div>
+    <div><a href="/api/admin/users">مدیریت کاربران</a></div>
+    <form action="/api/admin/logout" method="post">
+      <button type="submit" style="text-align: center">log out</button>
+    </form>
+  </body>
+</html>

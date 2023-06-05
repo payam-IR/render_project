@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>users</title>
+    <link rel="stylesheet" href="/css/table.css" />
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <div>
+      <form action="/api/admin/users/register" , method="post">
+        <input type="text" placeholder="username" name="username" />
+        <input type="text" placeholder="email" name="email" />
+        <input type="text" placeholder="password" name="password" />
+        <input type="text" placeholder="admin" name="admin" />
+        <input type="submit" />
+      </form>
+    </div>
+    <div><a href="/api/admin">panel</a></div>
+    <table>
+      <thead>
+        <tr>
+          <th>email</th>
+          <th>username</th>
+          <th>admin</th>
+          <th>operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%users.filter((e)=>{if(e.email != req.user.email)return e
+        return}).forEach((e)=>{%>
+        <tr>
+          <td><%=e.username%></td>
+          <td><%=e.email%></td>
+          <td><%=e.admin%></td>
+          <td>
+            <form
+              action="/api/admin/users/<%=e.id%>?method=DELETE"
+              ,
+              method="post"
+            >
+              <button type="submit">remove</button>
+            </form>
+            <a href="/api/admin/users/<%=e.id%>">update</a>
+          </td>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </body>
+</html>

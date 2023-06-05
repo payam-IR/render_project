@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>صفحه لاگین</title>
+    <style>
+      h1 {
+        color: black;
+        text-align: center;
+        border: 2px dotted blue;
+      }
+    </style>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <h1>salaaaaaam <%=req.user.username%> !!!</h1>
+    <%if(req.user.admin){%>
+    <div><a href="/api/admin">manage</a></div>
+    <% }else{%>
+    <div><a href="/api/user/me">me</a></div>
+    <%}%>
+  </body>
+</html>

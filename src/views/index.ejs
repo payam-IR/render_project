@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>render</title>
+  </head>
+  <body>
+    <p>HELLO WORLD</p>
+    <%if(req.isAuthenticated()){%>
+    <a href="/api/user">dashboard</a>
+    <%}else{%>
+    <a href="/api/auth/register">register</a>
+    <%}%>
+  </body>
+</html>

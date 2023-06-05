@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>آپدیت اطلاعات کاربران</title>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <div>
+      <%if(req.user.admin){%>
+      <form
+        action="/api/admin/users/<%=user.id%>?method=PUT"
+        ,
+        method="post"
+      >
+        <input
+          type="text"
+          placeholder="username"
+          name="username"
+          value="<%=user.username%>"
+        />
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          value="<%=user.email%>"
+        />
+        <input type="submit" />
+      </form>
+      <%}else{%>
+      <form
+        action="/api/user/me/<%=req.user.username%>?method=PUT"
+        ,
+        method="post"
+      >
+        <input
+          type="text"
+          placeholder="username"
+          name="username"
+          value="<%=req.user.username%>"
+        />
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          value="<%=req.user.email%>"
+        />
+        <input type="submit" />
+      </form>
+      <%}%>
+    </div>
+  </body>
+</html>

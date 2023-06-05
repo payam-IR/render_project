@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>صفحه لاگین</title>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <div>
+      <form action="/api/auth/login" , method="post">
+        <input type="text" placeholder="password" name="password" />
+        <input type="text" placeholder="email" name="email" />
+        <input type="submit" />
+      </form>
+    </div>
+    <div><a href="/api/auth/register">register</a></div>
+  </body>
+</html>

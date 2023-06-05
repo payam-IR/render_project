@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>profile</title>
+    <link rel="stylesheet" href="/css/table.css" />
+    <style>
+      div {
+        text-align: center;
+        font-size: medium;
+        color: black;
+      }
+      table {
+        width: 100%;
+        margin: 3px auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div style="color:red"><%=msg%></div>
+    <%}%>
+    <div>اطلاعات شما بصورت زیر میباشد</div>
+    <table>
+      <thead>
+        <tr>
+          <th>username</th>
+          <th>email</th>
+          <th>operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%=req.user.username%></td>
+          <td><%=req.user.email%></td>
+          <td>
+            <form
+              id="logout"
+              action="/api/user/me/<%=req.user.username%>?method=DELETE"
+              method="post"
+            >
+              <button type="submit">remove acc</button>
+              <a href="/api/user/me/<%=req.user.username%>">upadet</a>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <form
+        action="/api/user/me/upload"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" value="choose file" name="img" />
+        <input type="submit" value="send" />
+      </form>
+    </div>
+    <div>
+      <%if(req.user.img){%>
+      <img
+        src="<%=req.user.img%>"
+        alt=""
+        style="width: 100px; height: 100px; border-radius: 50%"
+      />
+      <%}%>
+    </div>
+    <div style="border: 2px dotted gold; margin: 2px">
+      <form action="/api/user/me/pay" method="post">
+        <input type="number" name="amount" min="10000" step="1000" />
+        <span style="font-size: small">موجودی مورد نظر رو وارد کنید</span>
+        <br />
+        <button style="margin-top: 10px; margin-right: 80px" type="submit">
+          پرداخت
+        </button>
+        <input type="text" readonly value="<%=req.user.charge%>" size="10" />
+        <span style="font-size: small">موجودی فعلی</span>
+      </form>
+    </div>
+
+    <div>
+      <form id="logout" action="/api/user/logout" method="post">
+        <button type="submit">log out</button>
+      </form>
+    </div>
+  </body>
+</html>

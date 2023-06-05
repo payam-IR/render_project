@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <style>
+      div {
+        text-align: center;
+        color: black;
+        font-size: medium;
+        margin: 5px 2px;
+      }
+      input {
+        padding: 3px 1px;
+      }
+      form {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%if(err.length){%>
+    <div>
+      <ul>
+        <%err.forEach(e=>{%>
+        <li><%=e%></li>
+        <%})%>
+      </ul>
+    </div>
+    <% } %> <%if(msg){%>
+    <div><%=msg%></div>
+    <%}%>
+    <div>صفحه ثبت نام</div>
+    <form action="/api/auth/register" method="post">
+      <input type="text" name="username" placeholder="اسم" />
+      <input type="text" name="email" placeholder="ایمیل" />
+      <input type="text" name="password" placeholder="رمز عبور" />
+      <button type="submit">ارسال</button>
+      <button type="reset">بازنشانی</button>
+    </form>
+    <a href="/api/auth/login">اکانت دارید؟</a>
+  </body>
+</html>

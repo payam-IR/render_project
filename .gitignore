@@ -1,0 +1,4 @@
+node_modules
+package-lock.json
+errors.log
+backup.js
