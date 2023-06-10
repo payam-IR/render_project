@@ -61,6 +61,7 @@
         <input type="submit" value="send" />
       </form>
     </div>
+    <%if(req.user.img){%>
     <div>
       <img
         src="<%=req.user.img%>"
@@ -68,6 +69,7 @@
         style="width: 100px; height: 100px; border-radius: 50%"
       />
     </div>
+    <%}%>
     <div><a href="/api/admin/users">مدیریت کاربران</a></div>
     <form action="/api/admin/logout" method="post">
       <button type="submit" style="text-align: center">log out</button>

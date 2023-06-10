@@ -31,11 +31,9 @@ module.exports = new (class extends cont {
     passport.authenticate("log-str", (err, user) => {
       if (err) return next(err);
       if (!user) {
-        req.flash("err", "مشکلی در ورورد پیش امد");
-        return res.redirect("/api/auth/login");
+        return res.redirect("/api/auth/login")
       }
       req.logIn(user, (err) => {
-        console.log(req.user.admin);
         if (err) return next(err);
         if (req.user.admin) return res.redirect("/api/admin");
         return res.redirect("/api/user");
