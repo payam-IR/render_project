@@ -48,7 +48,7 @@ app.use("/", router);
 process.on("uncaughtException", (err) => {
   winston.error(err.message, err);
   console.log("error happend");
-  process.exit(1);
+  process.exit();
 });
 process.on("unhandledRejection", (err) => {
   winston.error(err.message, err);
