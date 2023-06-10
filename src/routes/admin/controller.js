@@ -22,6 +22,7 @@ module.exports = new (class extends fother {
     req.logOut((err) => {
       if (err) return this.Error("خطا در پردازش فرمان", 500);
     });
+    res.redirect("/api/auth/login");
   }
   async die(req, res) {
     await this.User.findByIdAndRemove(req.params.id);
@@ -31,7 +32,6 @@ module.exports = new (class extends fother {
     res.redirect("/");
   }
   async edit_admin(req, res) {
-    console.log("helllo");
     await this.User.findByIdAndUpdate(req.params.id, {
       $set: { email: req.body.email, username: req.body.username },
     });
@@ -41,6 +41,14 @@ module.exports = new (class extends fother {
   async edit(req, res) {
     const user = await this.User.findById(req.params.id);
     res.render("update", { user });
+  }
+  async upload(req, res) {
+    console.log(req.file.path);
+    let path = req.file.path.replace(/\\/g, "/").substr(6);
+    await this.User.findByIdAndUpdate(req.user.id, {
+      $set: { img: path },
+    });
+    res.redirect("/api/admin");
   }
   async register(req, res) {
     let user = await this.User.findOne({ email: req.body.email });

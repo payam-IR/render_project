@@ -1,13 +1,13 @@
 const express = require("express");
 const controller = require("./controller");
-const { logged } = require("./../../middleware/mid");
+const { logged, isNotUser } = require("./../../middleware/mid");
 const router = express.Router();
 const validation = require("./../auth/validation").upadateValidation;
 const uploadValidation = require("./../auth/validation").uploadValidation;
 const upload = require("../../upload/upload");
-router.get("/", logged, controller.user.bind(controller));
-router.get("/me", controller.me.bind(controller));
-router.get("/me/:username", controller.edit.bind(controller));
+router.get("/", logged, isNotUser, controller.user.bind(controller));
+router.get("/me", logged,isNotUser,controller.me.bind(controller));
+router.get("/me/:username",logged, controller.edit.bind(controller));
 router.delete("/me/:username", controller.remove.bind(controller));
 router.put(
   "/me/:username",

@@ -28,10 +28,18 @@ module.exports = new (class extends cont {
   }
 
   async login(req, res, next) {
-    passport.authenticate("log-str", {
-      failureFlash: true,
-      failureRedirect: "/api/auth/login",
-      successRedirect: "/api/user",
+    passport.authenticate("log-str", (err, user) => {
+      if (err) return next(err);
+      if (!user) {
+        req.flash("err", "مشکلی در ورورد پیش امد");
+        return res.redirect("/api/auth/login");
+      }
+      req.logIn(user, (err) => {
+        console.log(req.user.admin);
+        if (err) return next(err);
+        if (req.user.admin) return res.redirect("/api/admin");
+        return res.redirect("/api/user");
+      });
     })(req, res, next);
   }
 })();
